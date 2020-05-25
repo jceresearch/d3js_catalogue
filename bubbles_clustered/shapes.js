@@ -9,39 +9,32 @@ var current_cluster_size = 0
 var data_field_names = ['size', 'text', 'rag', 'group', 'records'] //field list from data
 var node_field_names = ['size', 'text', 'rag', 'group', 'records'] //translation
 var node_field_labels = ['T-Shirt', 'Description', 'RAG', 'BU', 'Customer Records'] //nicer looking labels
-var node_field_tooltip = ['size', 'text', 'rag', 'group' ]
+var node_field_tooltip = ['size', 'text', 'rag', 'group']
 var node_field_tooltip_label = ['T-Shirt', 'Description', 'RAG', 'BU'] //nicer looking labels
-
 var colour_field = 'group'
 
-function generate_html_tooltip(d){
-let t="Details:"
-var n= node_field_tooltip.length
-for (var i=0;i<n; i++){
-   t=t+"<br/>"+node_field_tooltip_label[i]+': '+ d[node_field_tooltip[i]]
-
-
+function generate_html_tooltip(d) {
+  let t = "Details:"
+  var n = node_field_tooltip.length
+  for (var i = 0; i < n; i++) {
+    t = t + "<br/>" + node_field_tooltip_label[i] + ': ' + d[node_field_tooltip[i]]
+  }
+  return t
 }
-return t
-}
-
 
 function createNodes(data) {
   var nodeArray = []
   var n = data.length; // count of nodes
   var m = data_field_names.length //count  of fields to import into the nodes
-
   for (var i = 0; i < n; i++) {
     d = []
     for (var j = 0; j < n; j++) {
       d[node_field_names[j]] = data[i][data_field_names[j]]
     }
-    d.r= d.size * 10;
-    d.curr_colour=''
-
-  nodeArray.push(d);
+    d.r = d.size * 10;
+    d.curr_colour = ''
+    nodeArray.push(d);
   }
-
   return nodeArray
 }
 // colour scheme will be a collection of objects, with a default one and custom ones
@@ -51,7 +44,6 @@ var colour_scheme = new Object();
 colour_scheme["rag"] = d3.scaleOrdinal()
   .domain([1, 2, 3, 4])
   .range(["#7ac943", "#FEE350", "#FEB500", "#f21c23"]);
-
 
 function recalculate_clusters(nodes, clustering_field) {
   let cl = [] //array, internal variable
@@ -85,13 +77,12 @@ function recalculate_clusters(nodes, clustering_field) {
 };
 
 function changeColour(colour_dimension = colour_field) {
-  gnodes.selectAll("circle").attr("fill", function(d){
-    d.curr_colour=colour_scheme[colour_dimension](d[colour_dimension])
-    return d.curr_colour
-}
-)
+  gnodes.selectAll("circle")
+    .attr("fill", function (d) {
+      d.curr_colour = colour_scheme[colour_dimension](d[colour_dimension])
+      return d.curr_colour
+    })
   colour_field = colour_dimension;
-
 }
 
 function changeGrouping(dimension) {
@@ -175,12 +166,14 @@ function dragended(d) {
   d.fy = null;
 };
 
-function tooltip_on(d){
-  d3.select(this).select("circle").style("fill",
-    function(d){
-    return d3.rgb(d.curr_colour).darker();
-    })
-
+function tooltip_on(d) {
+  d3.select(this)
+    .select("circle")
+    .style("fill",
+      function (d) {
+        return d3.rgb(d.curr_colour)
+          .darker();
+      })
   div.transition()
     .duration(200)
     .style("opacity", .9);
@@ -188,15 +181,15 @@ function tooltip_on(d){
     .style("left", (d3.event.pageX) + "px")
     .style("top", (d3.event.pageY - 28) + "px");
 }
-function tooltip_off(d){
-  d3.select(this).select("circle").style("fill", d.current_colour);
-    div.transition()
-      .duration(500)
-      .style("opacity", 0);
 
-
+function tooltip_off(d) {
+  d3.select(this)
+    .select("circle")
+    .style("fill", d.current_colour);
+  div.transition()
+    .duration(500)
+    .style("opacity", 0);
 }
-
 
 function drawNodes(nodes) {
   gnodes = svg.datum(nodes)
@@ -209,17 +202,14 @@ function drawNodes(nodes) {
       .on("start", dragstarted)
       .on("drag", dragged)
       .on("end", dragended))
-      .on("mouseover", tooltip_on)
-      .on("mouseout", tooltip_off)
-
-
+    .on("mouseover", tooltip_on)
+    .on("mouseout", tooltip_off)
   circles = gnodes.append("circle")
     .attr("r", function (d) {
       return d.r;
     })
     .attr("fill", "white")
     .attr('stroke', 'none')
-
   labels = gnodes.append("text")
     .text(function (d) {
       return d.text;
@@ -274,10 +264,11 @@ var svg = d3.select('body')
   .append('svg')
   .attr('height', height)
   .attr('width', width)
-  .call(d3.zoom().on("zoom", function () {
-   svg.attr("transform", d3.event.transform)
-}))
-.append("g")
+  .call(d3.zoom()
+    .on("zoom", function () {
+      svg.attr("transform", d3.event.transform)
+    }))
+  .append("g")
 // Define the div for the tooltip
 var div = d3.select("body")
   .append("div")
