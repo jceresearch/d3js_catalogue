@@ -5,7 +5,8 @@
 		<title>Clustered bubble chart with force direct in D3.JS</title>
 		<link rel="stylesheet" type="text/css" href="style.css" >
 		<script type="text/javascript" src="d3.js"></script>
-
+		<script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
+		<script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
 
 	</head>
 
@@ -13,12 +14,18 @@
 		Colour by:
 		<button type="button" onclick="changeColour('rag')">RAG</button>
 		<button type="button" onclick="changeColour('group')">BU</button>
+	</BR>
 		Group by:
 		<button type="button" onclick="changeGrouping('rag')">RAG</button>
 		<button type="button" onclick="changeGrouping('group')">BU</button>
+		<button type="button" id='saveButton'>Export to PNG</button>
+	</BR>
+	Show/Hide:
+		<button type="button" onclick="togglefilter()">Show/Hide</button>
+			<button type="button" onclick="toggleblanking()">Blank/Colour</button>
+	</BR>
 
 		<script type="text/javascript" src="data.js"></script>
-	</BR>
 		<script type="text/javascript" src="shapes.js"></script>
 
 

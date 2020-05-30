@@ -5,6 +5,9 @@ html, body {
   font: 10px sans-serif;
   };
 }
+svg{
+  border:1px solid grey;
+}
 circle {
     stroke: #565352;
     stroke-width: 1;
