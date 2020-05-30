@@ -22,10 +22,15 @@ function generate_html_tooltip(d) {
   return t
 }
 
+//*
+ * Creates the data nodes from the data variable/json
+ * @param  {array} data [flat array of dictionary objects]
+ * @return {array}     [flat array of dictionary objects with new fieldnames]
+ */
 function createNodes(data) {
-  var nodeArray = []
-  var n = data.length; // count of nodes
-  var m = data_field_names.length //count  of fields to import into the nodes
+  let nodeArray = []
+  let n = data.length; // count of nodes
+  let m = data_field_names.length //count  of fields to import into the nodes
   for (var i = 0; i < n; i++) {
     d = []
     for (var j = 0; j < n; j++) {
