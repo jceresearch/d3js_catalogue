@@ -22,11 +22,7 @@ function generate_html_tooltip(d) {
   return t
 }
 
-//*
- * Creates the data nodes from the data variable/json
- * @param  {array} data [flat array of dictionary objects]
- * @return {array}     [flat array of dictionary objects with new fieldnames]
- */
+
 function createNodes(data) {
   let nodeArray = []
   let n = data.length; // count of nodes
@@ -360,7 +356,6 @@ var div_detail_area = d3.select("body")
 //because we want to add labels and potentially other things.
 drawNodes(nodes)
 changeColour(colour_field)
-<<<<<<< HEAD
 // Set-up the export button
 d3.select('#saveButton')
   .on('click', function() {
@@ -452,6 +447,5 @@ function svgString2Image(svgString, width, height, format, callback) {
   };
   image.src = imgsrc;
 }
-=======
+
 var simulation = simulate()
->>>>>>> 05ec65c86c57d3b81e06972629df4a73f052c0ff
